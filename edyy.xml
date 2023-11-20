@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accounts>
+    <account>
+        <accountName>Steam</accountName>
+        <username>vladboss</username>
+        <password>123</password>
+        <email>vals@email.com</email>
+        <website>steam.com</website>
+    </account>
+</accounts>
