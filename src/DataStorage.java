@@ -1,11 +1,8 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataStorage {
-    private static ArrayList<User> users;
+    private static final ArrayList<User> users;
 
     static {
         users = loadUsers();
@@ -25,7 +22,7 @@ public class DataStorage {
 
             writer.println("</users>");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileWriteException("Error while saving users");
         }
     }
 
@@ -47,7 +44,7 @@ public class DataStorage {
 
             writer.println("</accounts>");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileWriteException("Error while saving accounts");
         }
     }
 
@@ -81,7 +78,7 @@ public class DataStorage {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileReadException("Error while loading users");
         }
         return loadedUsers;
     }
@@ -119,7 +116,7 @@ public class DataStorage {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileReadException("Error while loading accounts");
         }
         return loadedUsers;
     }
@@ -129,7 +126,7 @@ public class DataStorage {
         try {
             new File(filePath).createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileWriteException("Error creating empty file");
         }
     }
 

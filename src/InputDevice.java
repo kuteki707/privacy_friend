@@ -14,11 +14,9 @@ public interface InputDevice {
     }
     static byte[] fileByteInput(String filePath){
         try {
-            // Read all bytes from the file into a byte array
             return Files.readAllBytes(Paths.get(filePath));
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new FileWriteException("Error while reading file");
         }
     }
 }
