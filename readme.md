@@ -20,13 +20,9 @@ Dive into Privacy Friend's architecture through the visual aid of our class diag
 
 ### Files: The Silent Guardians of Data
 
-![File Storage](p3_users_ss.png)
-
 Privacy Friend believes in the resilience of information stored in files. Explore how the application deftly manages and retrieves data, ensuring a seamless user experience.
 
 ### Commanding with Arguments
-
-![Arguments](argumets_p3.png)
 
 Privacy Friend embraces efficiency with the use of program arguments. Learn how to wield this command-line power for a personalized user experience.
 
