@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataStorage {
@@ -46,6 +49,12 @@ public class DataStorage {
         } catch (IOException e) {
             throw new FileWriteException("Error while saving accounts");
         }
+        String encryptedFileName = String.format("%s.enc", user.getUsername());
+        byte[] file = InputDevice.fileByteInput(fileName);
+        byte[] key = Encryptor.make256Bit(user.getPassword().getBytes());
+        byte[] encryptedFile = Encryptor.encryptAES(file, key);
+        OutputDevice.createFileFromBytes(encryptedFile, encryptedFileName);
+        deleteFile(fileName);
     }
 
     public static ArrayList<User> loadUsers() {
@@ -84,6 +93,16 @@ public class DataStorage {
     }
 
     public static ArrayList<UserAccount> loadAccounts(User user) {
+        try {
+            String encryptedFilePath = String.format("%s.enc", user.getUsername());
+            byte[] encrypted_file = InputDevice.fileByteInput(encryptedFilePath);
+            byte[] key = Encryptor.make256Bit(user.getPassword().getBytes());
+            byte[] decrypted_file = Decryptor.decryptAES(encrypted_file, key);
+            OutputDevice.createFileFromBytes(decrypted_file, user.getUsername() + ".xml");
+        } catch (Exception e) {
+            OutputDevice.display("");
+        }
+
         String filePath = String.format("%s.xml", user.getUsername());
         ArrayList<UserAccount> loadedUsers = new ArrayList<>();
         File file = new File(filePath);
@@ -126,8 +145,17 @@ public class DataStorage {
         try {
             new File(filePath).createNewFile();
         } catch (IOException e) {
-            throw new FileWriteException("Error creating empty file");
+            throw new FileWriteException("Error creating empty file "+ e.getMessage());
         }
+    }
+    static void deleteFile(String filePath) {
+        try {
+            Path path = Paths.get(filePath);
+            Files.delete(path);
+        }catch (IOException e) {
+            throw new FileWriteException("Error deleting file " + e.getMessage());
+        }
+
     }
 
     public static ArrayList<User> getUsers() {
