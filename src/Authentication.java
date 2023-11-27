@@ -31,8 +31,20 @@ public class Authentication {
         OutputDevice.display("Let's create an account for you!");
         OutputDevice.display("Please enter your username:");
         String username = InputDevice.keyboardTextInput();
+        while(username.length() < 3) {
+            OutputDevice.display("Username must be at least 3 characters long");
+            OutputDevice.display("Please enter your username:");
+            username = InputDevice.keyboardTextInput();
+        }
         OutputDevice.display("Please enter your password:");
-        String password = Hasher.hashWithSHA256(InputDevice.keyboardByteInput());
+        String tmp_password = InputDevice.keyboardTextInput();
+        while(tmp_password.length() < 8) {
+            OutputDevice.display("Password must be at least 8 characters long");
+            OutputDevice.display("Please enter your password:");
+            tmp_password = InputDevice.keyboardTextInput();
+        }
+        String password = Hasher.hashWithSHA256(tmp_password.getBytes());
+        tmp_password = null;
         String fileName = String.format("%s.xml", username);
         User user = new User(username, password);
         ArrayList<User> users= DataStorage.getUsers();

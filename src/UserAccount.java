@@ -22,7 +22,7 @@ public class UserAccount {
         String password = InputDevice.keyboardTextInput();
         OutputDevice.display("Enter email: (leave blank if none)");
         String email = InputDevice.keyboardTextInput();
-        OutputDevice.display("Enter website: (leave blank if none))");
+        OutputDevice.display("Enter website: (leave blank if none)");
         String website = InputDevice.keyboardTextInput();
         UserAccount account = new UserAccount(accountName, username, password, email, website);
         user.addAccount(account);
