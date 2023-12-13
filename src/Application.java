@@ -11,19 +11,7 @@ public class Application {
     }
 
     public void runTest() {
-        int i;
-        i = Integer.parseInt(InputDevice.keyboardTextInput());
-        if(i==1){
-            byte[] file = InputDevice.fileByteInput("readme.md");
-            byte[] key = Encryptor.make256Bit(InputDevice.keyboardByteInput());
-            byte[] encrypted_file = Encryptor.encryptAES(file, key);
-            OutputDevice.createFileFromBytes(encrypted_file, "readme.md.enc");
-        }else{
-            byte[] encrypted_file = InputDevice.fileByteInput("readme.md.enc");
-            byte[] key = Encryptor.make256Bit(InputDevice.keyboardByteInput());
-            byte[] decrypted_file = Decryptor.decryptAES(encrypted_file, key);
-            OutputDevice.createFileFromBytes(decrypted_file, "readme.md.dec");
-        }
+        OutputDevice.display(PasswordGenerator.generatePassword(16));
 
 
     }
@@ -34,8 +22,13 @@ public class Application {
 
             while (loggedInUser==null){
                 loggedInUser = Authentication.Login();
-                if(loggedInUser==null)
+                if(loggedInUser==null){
                     OutputDevice.display("Wrong username or password!");
+                    if(Authentication.init().equals("n")){
+                        loggedInUser = Authentication.Register();
+                    }
+                }
+
             }
         } else {
             while(loggedInUser==null) {
@@ -50,8 +43,7 @@ public class Application {
             OutputDevice.display("Press enter to show menu");
             InputDevice.keyboardTextInput();
             menu(loggedInUser);
-            DataStorage.saveUsers(DataStorage.getUsers());
-            DataStorage.saveAccounts(loggedInUser.getAccounts(), loggedInUser);
+
         }
     }
     private void menu(User loggedInUser){
@@ -78,6 +70,8 @@ public class Application {
         }
         switch (choice){
             case 0:
+                DataStorage.saveUsers(DataStorage.getUsers());
+                DataStorage.saveAccounts(loggedInUser.getAccounts(), loggedInUser);
                 OutputDevice.display("Bye!");
                 exit(0);
             case 1:

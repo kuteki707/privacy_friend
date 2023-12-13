@@ -18,8 +18,27 @@ public class UserAccount {
         String accountName = InputDevice.keyboardTextInput();
         OutputDevice.display("Enter username:(leave blank if none)");
         String username = InputDevice.keyboardTextInput();
-        OutputDevice.display("Enter password:");
-        String password = InputDevice.keyboardTextInput();
+        int generatePassword = -1;
+        String password = "";
+        while(generatePassword != 1 && generatePassword != 2){
+            OutputDevice.display("1. Generate password");
+            OutputDevice.display("2. Type password");
+            generatePassword = InputDevice.keyboardIntInput();
+        }
+        if(generatePassword == 1){
+            int length = 0;
+            while(length < 16){
+                OutputDevice.display("Password length (must be greater or equal to 16): ");
+                length = InputDevice.keyboardIntInput();
+            }
+            password = PasswordGenerator.generatePassword(length);
+            OutputDevice.display("Your generated password is: " + password);
+        }
+        else {
+            OutputDevice.display("Enter password:");
+            password = InputDevice.keyboardTextInput();
+        }
+
         OutputDevice.display("Enter email: (leave blank if none)");
         String email = InputDevice.keyboardTextInput();
         OutputDevice.display("Enter website: (leave blank if none)");

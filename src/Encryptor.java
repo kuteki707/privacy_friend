@@ -17,7 +17,7 @@ public interface Encryptor {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
             return cipher.doFinal(data);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            e.printStackTrace();  // Example: print the stack trace
+            e.printStackTrace();
             return null;
         }
     }

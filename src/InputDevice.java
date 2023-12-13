@@ -19,4 +19,13 @@ public interface InputDevice {
             throw new FileWriteException("Error while reading file");
         }
     }
+    static int keyboardIntInput(){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            return scanner.nextInt();
+        }catch (Exception e){
+            OutputDevice.display("Invalid input");
+            return keyboardIntInput();
+        }
+    }
 }

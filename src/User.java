@@ -15,6 +15,10 @@ public class User  {
         return accounts;
     }
     public void printAccounts(){
+        if (accounts.size() == 0){
+            OutputDevice.display("You don't have any accounts");
+            return;
+        }
         int i = 1;
         for(UserAccount account: accounts){
             OutputDevice.display("********** Account " + i + " **********");

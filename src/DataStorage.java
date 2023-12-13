@@ -97,7 +97,7 @@ public class DataStorage {
             String encryptedFilePath = String.format("%s.enc", user.getUsername());
             byte[] encrypted_file = InputDevice.fileByteInput(encryptedFilePath);
             byte[] key = Encryptor.make256Bit(user.getPassword().getBytes());
-            byte[] decrypted_file = Decryptor.decryptAES(encrypted_file, key);
+            byte[] decrypted_file = Decryptor.decryptAESNoOutput(encrypted_file, key);
             OutputDevice.createFileFromBytes(decrypted_file, user.getUsername() + ".xml");
         } catch (Exception e) {
             OutputDevice.display("");
