@@ -15,7 +15,7 @@ public class Authentication {
         OutputDevice.display("Please enter your username:");
         String username = InputDevice.keyboardTextInput();
         OutputDevice.display("Please enter your password:");
-        String password = Hasher.hashWithSHA256(InputDevice.keyboardByteInput());
+        String password = Hasher.hashWithSHA512(InputDevice.keyboardByteInput());
         User user = new User(username, password);
         ArrayList<User> users= DataStorage.getUsers();
         for(User tmp: users){
@@ -30,7 +30,7 @@ public class Authentication {
     static User Register() {
         OutputDevice.display("Let's create an account for you!");
         OutputDevice.display("Please enter your username:");
-        String username = InputDevice.keyboardTextInput();
+        String username = InputDevice.SQLSafeInput();
         while(username.length() < 3) {
             OutputDevice.display("Username must be at least 3 characters long");
             OutputDevice.display("Please enter your username:");
@@ -43,9 +43,8 @@ public class Authentication {
             OutputDevice.display("Please enter your password:");
             tmp_password = InputDevice.keyboardTextInput();
         }
-        String password = Hasher.hashWithSHA256(tmp_password.getBytes());
+        String password = Hasher.hashWithSHA512(tmp_password.getBytes());
         tmp_password = null;
-        String fileName = String.format("%s.xml", username);
         User user = new User(username, password);
         ArrayList<User> users= DataStorage.getUsers();
         for(User tmp: users) {
@@ -60,7 +59,6 @@ public class Authentication {
         OutputDevice.display("Hash text and files with different algorithms");
         OutputDevice.display("Encrypt text and files with different algorithms");
         DataStorage.addUser(user);
-        DataStorage.createEmptyFile(fileName);
         return user;
     }
 }

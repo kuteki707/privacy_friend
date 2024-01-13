@@ -11,7 +11,7 @@ public class Application {
     }
 
     public void runTest() {
-        OutputDevice.display(PasswordGenerator.generatePassword(16));
+        OutputDevice.display(DataStorage.loadUsers().toString());
 
 
     }

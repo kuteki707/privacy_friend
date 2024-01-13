@@ -8,6 +8,18 @@ public interface InputDevice {
         return scanner.nextLine();
     }
 
+    static String SQLSafeInput() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        while (!input.matches("^[a-zA-Z0-9_]+$")) {
+            OutputDevice.display("Invalid input. Please enter alphanumeric characters and underscores only.");
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
     static byte[] keyboardByteInput(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().getBytes();
