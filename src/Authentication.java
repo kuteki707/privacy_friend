@@ -30,7 +30,7 @@ public class Authentication {
     static User Register() {
         OutputDevice.display("Let's create an account for you!");
         OutputDevice.display("Please enter your username:");
-        String username = InputDevice.SQLSafeInput();
+        String username = InputDevice.keyboardTextInput();
         while(username.length() < 3) {
             OutputDevice.display("Username must be at least 3 characters long");
             OutputDevice.display("Please enter your username:");

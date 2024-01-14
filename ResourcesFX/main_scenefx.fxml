@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="775.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSceneController">
+   <children>
+      <Label fx:id="test_label" layoutX="14.0" layoutY="26.0" text="You are logged in" />
+      <ListView fx:id="list_view" layoutX="29.0" layoutY="51.0" prefHeight="704.0" prefWidth="319.0" />
+   </children>
+</AnchorPane>
